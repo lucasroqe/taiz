@@ -2,10 +2,19 @@
 
 import { exec } from 'child_process'
 import chalk from 'chalk'
-import { askFramework, askProjectName, askOrm, askDb, askAuth } from './prompts'
+import {
+  askFramework,
+  askProjectName,
+  askOrm,
+  askDb,
+  askAuth,
+  askUi,
+  askBaseColor,
+} from './prompts'
 import ora from 'ora'
 import { addPrisma } from './orm/prisma'
 import { addAuth } from './auths/betterauth'
+import { addUi } from './uiLib'
 
 const promptUser = async () => {
   const projectName = await askProjectName()
@@ -13,8 +22,10 @@ const promptUser = async () => {
   const orm = await askOrm()
   const db = await askDb()
   const auth = await askAuth()
+  const ui = await askUi()
+  const color = await askBaseColor()
 
-  return { projectName, framework, orm, db, auth }
+  return { projectName, framework, orm, db, auth, ui, color }
 }
 
 const spinner = ora()
@@ -52,6 +63,12 @@ export const addPackage = async () => {
       spinner.start('Installing BetterAuth...')
       await addAuth(answer.projectName, answer.db)
       spinner.succeed('BetterAuth installed successfully!')
+    }
+
+    if (answer.ui === 'shadcnui') {
+      spinner.start(`Adding Shadcn/UI with the base color ${answer.color}...`)
+      await addUi(answer.projectName, answer.color)
+      spinner.succeed('Shadcn/UI added successfully!')
     }
   } catch (error) {
     console.error(chalk.red('Error creating project:'), error)

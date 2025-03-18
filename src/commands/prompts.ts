@@ -67,3 +67,43 @@ export const askAuth = async () => {
     ],
   })
 }
+
+export const askUi = async () => {
+  return await select({
+    message: 'Select a component library:',
+    choices: [
+      {
+        name: 'Shadcn/UI',
+        value: 'shadcnui',
+      },
+    ],
+  })
+}
+
+export const askBaseColor = async () => {
+  return await select({
+    message: 'Which color would you like to use as the base color?',
+    choices: [
+      {
+        name: 'Neutral',
+        value: 'neutral',
+      },
+      {
+        name: 'Gray',
+        value: 'gray',
+      },
+      {
+        name: 'Zinc',
+        value: 'zinc',
+      },
+      {
+        name: 'Stone',
+        value: 'stone',
+      },
+      {
+        name: 'Slate',
+        value: 'slate',
+      },
+    ],
+  })
+}

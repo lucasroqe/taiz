@@ -3,7 +3,7 @@ import fs from 'fs'
 
 export const addScriptsToPackageJsonPrisma = (projectName: string) => {
   // Package.json path, using projetcs name
-  const packageJsonPath = path.resolve(projectName, 'package.json')
+  const packageJsonPath = path.join(projectName, 'package.json')
 
   if (!fs.existsSync(packageJsonPath)) {
     console.error(`package.json not found at ${packageJsonPath}`)
@@ -33,4 +33,17 @@ export const addScriptsToPackageJsonPrisma = (projectName: string) => {
   } catch (error) {
     console.error('Error updating package.json:', error)
   }
+}
+
+export const addSchemaToPrisma = (projectName: string) => {
+  const schemaPath = path.join(projectName, 'prisma', 'schema.prisma')
+
+  const modelUser = `
+  model User {
+  id    String @id @default(uuid())
+  email String @unique
+  name  String?
+}
+`
+  fs.appendFileSync(schemaPath, '' + modelUser + '')
 }

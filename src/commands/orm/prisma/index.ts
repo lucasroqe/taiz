@@ -1,5 +1,5 @@
 import { exec } from 'child_process'
-import { addScriptsToPackageJsonPrisma } from './generator'
+import { addSchemaToPrisma, addScriptsToPackageJsonPrisma } from './generator'
 
 export async function addPrisma(projectName: string, db: string) {
   await new Promise((resolve, reject) => {
@@ -21,4 +21,12 @@ export async function addPrisma(projectName: string, db: string) {
   })
 
   addScriptsToPackageJsonPrisma(projectName)
+  addSchemaToPrisma(projectName)
+
+  await new Promise((resolve, reject) => {
+    exec(`pnpm dlx prisma migrate dev -n init`, { cwd: projectName }, (error) => {
+      if (error) return reject(error)
+      resolve('')
+    })
+  })
 }

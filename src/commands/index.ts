@@ -42,8 +42,11 @@ export const addPackage = async () => {
       await new Promise((resolve, reject) => {
         exec(
           `pnpm dlx create-next-app@latest ${answer.projectName} --yes --tailwind --eslint --app --ts --empty`,
-          (error, stdout) => {
-            if (error) return reject(error)
+          (error, stdout, stderr) => {
+            if (error) {
+              console.error(chalk.red('Error installing NextJS:'), stderr)
+              return reject(error)
+            }
             resolve(stdout)
           },
         )
@@ -70,8 +73,23 @@ export const addPackage = async () => {
       await addUi(answer.projectName, answer.color)
       spinner.succeed('Shadcn/UI added successfully!')
     }
+
+    spinner.start(
+      'Installing additional configs (React Hook Form, Zod, etc)...',
+    )
+    await new Promise((resolve, reject) => {
+      exec(
+        `pnpm add zod react-hook-form lucide-react`,
+        { cwd: answer.projectName },
+        (error) => {
+          if (error) return reject(error)
+          resolve('')
+        },
+      )
+    })
+    spinner.succeed('Additional dependencies installed successfully!')
   } catch (error) {
-    console.error(chalk.red('Error creating project:'), error)
+    console.error(chalk.red('Error creating project: '), error)
     process.exit(1)
   }
 }

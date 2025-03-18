@@ -1,0 +1,26 @@
+{
+  "name": "taiz",
+  "version": "0.1.0",
+  "description": "Test CLI",
+  "main": "dist/index.js",
+  "bin": {
+    "taiz": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/index.ts"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.2.2",
+    "@types/node": "^20.11.19",
+    "eslint": "^8.57.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^3.3.2",
+    "chalk": "^4.1.2",
+    "commander": "^12.1.0",
+    "ora": "^8.2.0"
+  }
+}

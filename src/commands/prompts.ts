@@ -49,3 +49,21 @@ export const askDb = async () => {
     ],
   })
 }
+
+export const askAuth = async () => {
+  return await select({
+    message: 'Select a database:',
+    choices: [
+      {
+        name: 'BetterAuth',
+        value: 'betterauth',
+      },
+      new Separator(),
+      {
+        name: 'AuthJS',
+        value: 'authjS',
+        disabled: true,
+      },
+    ],
+  })
+}

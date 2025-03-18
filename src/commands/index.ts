@@ -2,17 +2,19 @@
 
 import { exec } from 'child_process'
 import chalk from 'chalk'
-import { askFramework, askProjectName, askOrm, askDb } from './prompts'
+import { askFramework, askProjectName, askOrm, askDb, askAuth } from './prompts'
 import ora from 'ora'
 import { addPrisma } from './orm/prisma'
+import { addAuth } from './auths/betterauth'
 
 const promptUser = async () => {
   const projectName = await askProjectName()
   const framework = await askFramework()
   const orm = await askOrm()
   const db = await askDb()
+  const auth = await askAuth()
 
-  return { projectName, framework, orm, db }
+  return { projectName, framework, orm, db, auth }
 }
 
 const spinner = ora()
@@ -44,6 +46,12 @@ export const addPackage = async () => {
       )
       await addPrisma(answer.projectName, answer.db)
       spinner.succeed(`Prisma configured successfully!`)
+    }
+
+    if (answer.auth === 'betterauth') {
+      spinner.start('Installing BetterAuth...')
+      await addAuth(answer.projectName, answer.db)
+      spinner.succeed('BetterAuth installed successfully!')
     }
   } catch (error) {
     console.error(chalk.red('Error creating project:'), error)

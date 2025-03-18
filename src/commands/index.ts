@@ -5,12 +5,11 @@ import chalk from 'chalk'
 import { askFramework, askProjectName } from './prompts'
 import ora from 'ora'
 
-
 const promptUser = async () => {
   const projectName = await askProjectName()
   const framework = await askFramework()
 
-  return { projectName, framework}
+  return { projectName, framework }
 }
 
 const spinner = ora()
@@ -35,7 +34,6 @@ export const addPackage = async () => {
       })
       spinner.succeed('NextJS installed successfully!')
     }
-
   } catch (error) {
     console.error(chalk.red('Error creating project:'), error)
     process.exit(1)

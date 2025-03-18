@@ -17,3 +17,35 @@ export const askFramework = async () => {
     ],
   })
 }
+
+export const askOrm = async () => {
+  return await select({
+    message: 'Select an ORM:',
+    choices: [
+      {
+        name: 'Prisma',
+        value: 'prisma',
+      },
+      new Separator(),
+      { name: 'Drizzle', value: 'drizzle', disabled: true },
+    ],
+  })
+}
+
+export const askDb = async () => {
+  return await select({
+    message: 'Select a database:',
+    choices: [
+      {
+        name: 'SQLite',
+        value: 'sqlite',
+      },
+      {
+        name: 'PostgreSQL',
+        value: 'postgresql',
+      },
+      new Separator(),
+      { name: 'MySQL', value: 'mysql', disabled: true },
+    ],
+  })
+}

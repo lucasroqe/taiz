@@ -2,14 +2,17 @@
 
 import { exec } from 'child_process'
 import chalk from 'chalk'
-import { askFramework, askProjectName } from './prompts'
+import { askFramework, askProjectName, askOrm, askDb } from './prompts'
 import ora from 'ora'
+import { addPrisma } from './orm/prisma'
 
 const promptUser = async () => {
   const projectName = await askProjectName()
   const framework = await askFramework()
+  const orm = await askOrm()
+  const db = await askDb()
 
-  return { projectName, framework }
+  return { projectName, framework, orm, db }
 }
 
 const spinner = ora()
@@ -33,6 +36,14 @@ export const addPackage = async () => {
         )
       })
       spinner.succeed('NextJS installed successfully!')
+    }
+
+    if (answer.orm === 'prisma') {
+      spinner.start(
+        `Installing Prisma and configuring the database (${answer.db.toUpperCase()})...`,
+      )
+      await addPrisma(answer.projectName, answer.db)
+      spinner.succeed(`Prisma configured successfully!`)
     }
   } catch (error) {
     console.error(chalk.red('Error creating project:'), error)

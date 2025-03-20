@@ -2,7 +2,6 @@ import { exec } from 'child_process'
 import { addBetterAuthInstance } from './generator'
 
 export async function addAuth(projectName: string, db: string) {
-  
   await new Promise((resolve, reject) => {
     exec('pnpm add better-auth', { cwd: projectName }, (error) => {
       if (error) return reject(error)
@@ -10,11 +9,15 @@ export async function addAuth(projectName: string, db: string) {
       resolve('')
     })
   })
-  
+
   await new Promise((resolve, reject) => {
-    exec('pnpm dlx @better-auth/cli generate -y', { cwd: projectName }, (error) => {
-      if (error) return reject(error)
-      resolve('')
-    })
+    exec(
+      'pnpm dlx @better-auth/cli generate -y',
+      { cwd: projectName },
+      (error) => {
+        if (error) return reject(error)
+        resolve('')
+      },
+    )
   })
 }

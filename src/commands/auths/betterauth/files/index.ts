@@ -5,7 +5,7 @@ import fs from 'fs'
 export const createEnvAuth = async (projectName: string) => {
   const envFilePath = path.join(projectName, '.env')
 
-  fs.writeFileSync(envFilePath, contentEnvAuth())
+  fs.appendFileSync(envFilePath, contentEnvAuth())
 }
 
 // Create /src/lib/auth.ts
@@ -58,35 +58,67 @@ export const createClientInstanceFile = async (projectName: string) => {
 }
 
 // Files content//
-export const contentEnvAuth = () => {
-  return `BETTER_AUTH_SECRET= #your-secret-key`
+const contentEnvAuth = () => {
+  return `
+  
+BETTER_AUTH_SECRET= #your-secret-key`
 }
 
 export const contentAuthSqlite = () => {
-  return `import { betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
-import { PrismaClient } from "@prisma/client";
- 
-const prisma = new PrismaClient();
+  return `import { betterAuth } from 'better-auth'
+import { prismaAdapter } from 'better-auth/adapters/prisma'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
 export const auth = betterAuth({
-    database: prismaAdapter(prisma, {
-        provider: "sqlite", 
-    }),
-});
-  `
+  database: prismaAdapter(prisma, {
+    provider: 'sqlite',
+  }),
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: true,
+  },
+  session: {
+    cookieCache: {
+      enabled: true,
+    },
+  },
+  user: {
+    deleteUser: {
+      enabled: true,
+    },
+  },
+})
+`
 }
 
 export const contentAuthPg = () => {
-  return `import { betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
-import { PrismaClient } from "@prisma/client";
- 
-const prisma = new PrismaClient();
+  return `import { betterAuth } from 'better-auth'
+import { prismaAdapter } from 'better-auth/adapters/prisma'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
 export const auth = betterAuth({
-    database: prismaAdapter(prisma, {
-        provider: "postgresql", 
-    }),
-});
+  database: prismaAdapter(prisma, {
+    provider: 'postgresql',
+  }),
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: true,
+  },
+  session: {
+    cookieCache: {
+      enabled: true,
+    },
+  },
+  user: {
+    deleteUser: {
+      enabled: true,
+    },
+  },
+})
 `
 }
 

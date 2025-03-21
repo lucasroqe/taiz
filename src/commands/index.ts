@@ -15,6 +15,7 @@ import ora from 'ora'
 import { addPrisma } from './orm/prisma'
 import { addAuth } from './auths/betterauth'
 import { addUi } from './uiLib'
+import { addAuthFormComponent } from './misc/authForm/generators'
 
 const promptUser = async () => {
   const projectName = await askProjectName()
@@ -87,7 +88,16 @@ export const addPackage = async () => {
         },
       )
     })
+    addAuthFormComponent(answer.projectName)
     spinner.succeed('Additional dependencies installed successfully!')
+    console.log(chalk.green('\nProject setup complete!'))
+    console.log(chalk.blue('To get started:'))
+    console.log(chalk.cyan(`  cd ${answer.projectName}`))
+    console.log(chalk.cyan(`  Edit you BETTER_AUTH_SECRET at .env`))
+    console.log(chalk.cyan('  pnpm prisma migrate dev'))
+    console.log(chalk.cyan('  pnpm run dev'))
+    console.log(chalk.green('\nHappy coding! 🚀'))
+    
   } catch (error) {
     console.error(chalk.red('Error creating project: '), error)
     process.exit(1)

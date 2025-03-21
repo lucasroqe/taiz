@@ -162,7 +162,7 @@ export function Login({ className, ...props }: React.ComponentPropsWithoutRef<'d
 }
 
 const generateRegisterComponent = () => {
-return `'use client'
+  return `'use client'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {

@@ -17,6 +17,8 @@ import { addAuth } from './auths/betterauth'
 import { addUi } from './uiLib'
 import { addAuthFormComponent } from './misc/authForm/generators'
 import { addHomePageComponent } from './misc/hero/generators'
+import figlet from 'figlet'
+import gradient from 'gradient-string'
 
 const promptUser = async () => {
   const projectName = await askProjectName()
@@ -33,12 +35,18 @@ const promptUser = async () => {
 const spinner = ora()
 
 export const addPackage = async () => {
-  console.log(chalk.bgMagenta('Creating NextJS project...'))
+  const lilacGradient = gradient([
+    { color: '#D8BFD8', pos: 0 },
+    { color: '#E6E6FA', pos: 0.5 },
+    { color: '#EBB7EB', pos: 1 },
+  ])
+
+  console.log(lilacGradient(figlet.textSync('Taiz', { font: 'ANSI Shadow' })))
 
   try {
     const answer = await promptUser()
     spinner.start()
-
+    const start = Date.now()
     if (answer.framework === 'nextjs') {
       spinner.start('Installing NextJS...')
       await new Promise((resolve, reject) => {
@@ -92,13 +100,37 @@ export const addPackage = async () => {
     addAuthFormComponent(answer.projectName)
     addHomePageComponent(answer.projectName)
     spinner.succeed('Additional dependencies installed successfully!')
-    console.log(chalk.green('\nProject setup complete!'))
-    console.log(chalk.blue('To get started:'))
-    console.log(chalk.cyan(`  cd ${answer.projectName}`))
-    console.log(chalk.cyan(`  Edit you BETTER_AUTH_SECRET at .env`))
-    console.log(chalk.cyan('  pnpm prisma migrate dev'))
-    console.log(chalk.cyan('  pnpm run dev'))
-    console.log(chalk.green('\nHappy coding! 🚀'))
+    const end = Date.now()
+    const duration = ((end - start) / 1000).toFixed(2)
+
+    console.log('\n🎉 Project setup complete! 🚀')
+    console.log(chalk.bgGreen(`\nAll ready in ${duration} seconds`))
+
+    console.log('\nTo get started:')
+    console.log(`1. Navigate to ` + chalk.blue.bold(`${answer.projectName}`))
+    console.log(
+      `2. Edit your ` + chalk.blue.bold(`BETTER_AUTH_SECRET`) + ` in .env`,
+    )
+    console.log(
+      '3. Run ' + chalk.blue.bold('pnpm prisma migrate dev --name "init"'),
+    )
+    console.log('4. Run ' + chalk.blue.bold('pnpm run dev'))
+    console.log(
+      '5. Open ' +
+        chalk.blue.bold('http://localhost:3000') +
+        ` in your browser`,
+    )
+
+    console.log('\nHappy coding!\n')
+
+    console.log(chalk.yellow('Notes:'))
+    console.log(
+      '- Zod is already installed. Feel free to create validations for the auth form.',
+    )
+    console.log(
+      '- Found an issue? Report it at: ' +
+        chalk.blue('https://github.com/lucasroqe/taiz'),
+    )
   } catch (error) {
     console.error(chalk.red('Error creating project: '), error)
     process.exit(1)

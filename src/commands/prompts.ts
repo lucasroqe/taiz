@@ -1,7 +1,18 @@
-import { input, select, Separator } from '@inquirer/prompts'
+import { input, select } from '@inquirer/prompts'
 
 export const askProjectName = async () => {
-  return await input({ message: 'Enter the project name:' })
+  return await input({
+    message: 'Enter the project name:',
+    validate: (value) => {
+      if (!value.trim()) {
+        return 'Project name cannot be empty.'
+      }
+      if (!/^[a-zA-Z0-9-_]+$/.test(value)) {
+        return 'Project name can only contain letters, numbers, dashes, and underscores.'
+      }
+      return true
+    },
+  })
 }
 
 export const askFramework = async () => {
@@ -12,8 +23,6 @@ export const askFramework = async () => {
         name: 'NextJS',
         value: 'nextjs',
       },
-      new Separator(),
-      { name: 'Vite', value: 'vite', disabled: true },
     ],
   })
 }
@@ -26,8 +35,7 @@ export const askOrm = async () => {
         name: 'Prisma',
         value: 'prisma',
       },
-      new Separator(),
-      { name: 'Drizzle', value: 'drizzle', disabled: true },
+      // { name: 'Drizzle', value: 'drizzle', disabled: true },
     ],
   })
 }
@@ -44,8 +52,7 @@ export const askDb = async () => {
         name: 'PostgreSQL',
         value: 'postgresql',
       },
-      new Separator(),
-      { name: 'MySQL', value: 'mysql', disabled: true },
+      // { name: 'MySQL', value: 'mysql', disabled: true },
     ],
   })
 }
@@ -58,12 +65,11 @@ export const askAuth = async () => {
         name: 'BetterAuth',
         value: 'betterauth',
       },
-      new Separator(),
-      {
-        name: 'AuthJS',
-        value: 'authjS',
-        disabled: true,
-      },
+      // {
+      //   name: 'AuthJS',
+      //   value: 'authjS',
+      //   disabled: true,
+      // },
     ],
   })
 }

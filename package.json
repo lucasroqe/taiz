@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
+    "@types/figlet": "^1.7.0",
     "@types/node": "^20.11.19",
     "eslint": "^8.57.1",
     "tsx": "^4.19.3",
@@ -21,6 +22,8 @@
     "@inquirer/prompts": "^3.3.2",
     "chalk": "^4.1.2",
     "commander": "^12.1.0",
+    "figlet": "^1.8.0",
+    "gradient-string": "^3.0.0",
     "ora": "^8.2.0"
   }
 }

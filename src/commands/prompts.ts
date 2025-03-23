@@ -5,10 +5,10 @@ export const askProjectName = async () => {
     message: 'Enter the project name:',
     validate: (value) => {
       if (!value.trim()) {
-        return 'Project name cannot be empty.'
+        return 'Project name cannot be empty. Please enter a valid name.'
       }
       if (!/^[a-zA-Z0-9-_]+$/.test(value)) {
-        return 'Project name can only contain letters, numbers, dashes, and underscores.'
+        return 'Project name can only contain letters, numbers, dashes (-), and underscores (_).'
       }
       return true
     },
@@ -59,7 +59,7 @@ export const askDb = async () => {
 
 export const askAuth = async () => {
   return await select({
-    message: 'Select a database:',
+    message: 'Select an authentication method:',
     choices: [
       {
         name: 'BetterAuth',

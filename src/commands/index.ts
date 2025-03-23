@@ -66,7 +66,7 @@ export const addPackage = async () => {
 
     if (answer.orm === 'prisma') {
       spinner.start(
-        `Installing Prisma and configuring the database (${answer.db.toUpperCase()})...`,
+        `Installing Prisma and setting up the (${answer.db.toUpperCase()}) database...`,
       )
       await addPrisma(answer.projectName, answer.db)
       spinner.succeed(`Prisma configured successfully!`)
@@ -79,7 +79,9 @@ export const addPackage = async () => {
     }
 
     if (answer.ui === 'shadcnui') {
-      spinner.start(`Adding Shadcn/UI with the base color ${answer.color}...`)
+      spinner.start(
+        `Adding Shadcn/UI with ${answer.color} as the base color...`,
+      )
       await addUi(answer.projectName, answer.color)
       spinner.succeed('Shadcn/UI added successfully!')
     }
@@ -103,18 +105,24 @@ export const addPackage = async () => {
     const end = Date.now()
     const duration = ((end - start) / 1000).toFixed(2)
 
-    console.log('\n🎉 Project setup complete! 🚀')
-    console.log(chalk.bgGreen(`\nAll ready in ${duration} seconds`))
+    console.log('\n🎉 Project setup is complete! 🚀')
+    console.log(chalk.bgGreen(`\nDone in just ${duration} seconds!`))
 
     console.log('\nTo get started:')
     console.log(`1. Navigate to ` + chalk.blue.bold(`${answer.projectName}`))
     console.log(
-      `2. Edit your ` + chalk.blue.bold(`BETTER_AUTH_SECRET`) + ` in .env`,
+      `2. Open the .env file and update ` +
+        chalk.blue.bold(`BETTER_AUTH_SECRET`) +
+        ` with a strong secret key.`,
     )
     console.log(
-      '3. Run ' + chalk.blue.bold('pnpm prisma migrate dev --name "init"'),
+      '3. Run ' +
+        chalk.blue.bold('pnpm prisma migrate dev --name "init"') +
+        ' to apply database migrations',
     )
-    console.log('4. Run ' + chalk.blue.bold('pnpm run dev'))
+    console.log(
+      '4. Run ' + chalk.blue.bold('pnpm run dev') + ' to start the project',
+    )
     console.log(
       '5. Open ' +
         chalk.blue.bold('http://localhost:3000') +

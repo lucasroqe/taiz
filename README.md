@@ -59,4 +59,13 @@ taiz init
 
 ---
 
+### Commands
+| Command | Short Flag | Long Option       | Description                                    | Argument          |
+| ------- | ---------- | ----------------- | ---------------------------------------------- | ----------------- |
+| init    | -          | -                 | initialise and configure Taiz                  |                   |
+| -       | -e         | --empty       | initialise without any ui                      |                   |
+
+
+---
+
 Taiz is packed with tools to help you build faster and smarter. Stay tuned for more features coming soon!

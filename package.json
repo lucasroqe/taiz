@@ -1,7 +1,7 @@
 {
   "name": "taiz",
-  "version": "0.1.0",
-  "description": "Test CLI",
+  "version": "1.0.0",
+  "description": "A powerful CLI tool for scaffolding full-stack Next.js applications with ease.",
   "main": "dist/index.js",
   "bin": {
     "taiz": "dist/index.js"

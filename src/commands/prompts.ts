@@ -20,7 +20,7 @@ export const askFramework = async () => {
     message: 'Select a framework:',
     choices: [
       {
-        name: 'NextJS',
+        name: 'Next.js',
         value: 'nextjs',
       },
     ],

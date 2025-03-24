@@ -32,9 +32,10 @@ const promptUser = async () => {
   return { projectName, framework, orm, db, auth, ui, color }
 }
 
-const spinner = ora()
+export const addPackage = async (options: any) => {
 
-export const addPackage = async () => {
+  const spinner = ora()
+
   const lilacGradient = gradient([
     { color: '#D8BFD8', pos: 0 },
     { color: '#E6E6FA', pos: 0.5 },
@@ -61,7 +62,7 @@ export const addPackage = async () => {
           },
         )
       })
-      spinner.succeed('NextJS installed successfully!')
+      spinner.succeed('Next.js installed successfully!')
     }
 
     if (answer.orm === 'prisma') {
@@ -99,14 +100,30 @@ export const addPackage = async () => {
         },
       )
     })
-    addAuthFormComponent(answer.projectName)
-    addHomePageComponent(answer.projectName)
+
+    if (!options.empty) {
+      addAuthFormComponent(answer.projectName)
+      addHomePageComponent(answer.projectName)
+    }
+
     spinner.succeed('Additional dependencies installed successfully!')
     const end = Date.now()
     const duration = ((end - start) / 1000).toFixed(2)
 
     console.log('\n🎉 Project setup is complete! 🚀')
     console.log(chalk.bgGreen(`\nDone in just ${duration} seconds!`))
+
+    if (options.empty) {
+      console.log(
+        chalk.cyan('\nProject generated without additional UI components.'),
+      )
+    } else {
+      console.log(
+        chalk.cyan(
+          '\nProject generated with pre-built UI components (auth form and home page).',
+        ),
+      )
+    }
 
     console.log('\nTo get started:')
     console.log(`1. Navigate to ` + chalk.blue.bold(`${answer.projectName}`))
@@ -118,15 +135,15 @@ export const addPackage = async () => {
     console.log(
       '3. Run ' +
         chalk.blue.bold('pnpm prisma migrate dev --name "init"') +
-        ' to apply database migrations',
+        ' to apply database migrations.',
     )
     console.log(
-      '4. Run ' + chalk.blue.bold('pnpm run dev') + ' to start the project',
+      '4. Run ' + chalk.blue.bold('pnpm run dev') + ' to start the project.',
     )
     console.log(
       '5. Open ' +
         chalk.blue.bold('http://localhost:3000') +
-        ` in your browser`,
+        ` in your browser.`,
     )
 
     console.log('\nHappy coding!\n')

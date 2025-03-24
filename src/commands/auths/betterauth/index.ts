@@ -1,5 +1,5 @@
 import { exec } from 'child_process'
-import { addBetterAuthInstance } from './generator'
+import { addBetterAuthInstance } from './generator.js'
 
 export async function addAuth(projectName: string, db: string) {
   await new Promise((resolve, reject) => {

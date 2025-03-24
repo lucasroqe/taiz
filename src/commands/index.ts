@@ -10,13 +10,13 @@ import {
   askAuth,
   askUi,
   askBaseColor,
-} from './prompts'
+} from './prompts.js'
 import ora from 'ora'
-import { addPrisma } from './orm/prisma'
-import { addAuth } from './auths/betterauth'
-import { addUi } from './uiLib'
-import { addAuthFormComponent } from './misc/authForm/generators'
-import { addHomePageComponent } from './misc/hero/generators'
+import { addPrisma } from './orm/prisma/index.js'
+import { addAuth } from './auths/betterauth/index.js'
+import { addUi } from './uiLib/index.js'
+import { addAuthFormComponent } from './misc/authForm/generators.js'
+import { addHomePageComponent } from './misc/hero/generators.js'
 import figlet from 'figlet'
 import gradient from 'gradient-string'
 
@@ -33,7 +33,6 @@ const promptUser = async () => {
 }
 
 export const addPackage = async (options: any) => {
-
   const spinner = ora()
 
   const lilacGradient = gradient([

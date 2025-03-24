@@ -3,7 +3,7 @@ import {
   createClientInstanceFile,
   createEnvAuth,
   createMountHandlerFile,
-} from './files'
+} from './files/index.js'
 
 export const addBetterAuthInstance = async (
   projectName: string,

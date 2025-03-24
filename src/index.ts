@@ -1,6 +1,5 @@
-// No seu arquivo de CLI
 import { Command } from 'commander'
-import { addPackage } from './commands'
+import { addPackage } from './commands/index.js'
 
 const program = new Command()
 

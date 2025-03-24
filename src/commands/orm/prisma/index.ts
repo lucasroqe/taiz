@@ -1,5 +1,8 @@
 import { exec } from 'child_process'
-import { addSchemaToPrisma, addScriptsToPackageJsonPrisma } from './generator'
+import {
+  addSchemaToPrisma,
+  addScriptsToPackageJsonPrisma,
+} from './generator.js'
 
 export async function addPrisma(projectName: string, db: string) {
   await new Promise((resolve, reject) => {

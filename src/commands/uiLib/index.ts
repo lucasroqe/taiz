@@ -1,9 +1,13 @@
 import { exec } from 'child_process'
 
+import { getPackageManagerCommand } from '../package-command.js'
+
+const packageManager = getPackageManagerCommand()
+
 export async function addUi(projectName: string, color: string) {
   await new Promise((resolve, reject) => {
     exec(
-      `pnpm dlx shadcn@latest init --yes --base-color ${color}`,
+      `${packageManager.dlx} shadcn@latest init --yes --base-color ${color}`,
       { cwd: projectName },
       (error) => {
         if (error) return reject(error)
@@ -14,7 +18,7 @@ export async function addUi(projectName: string, color: string) {
 
   await new Promise((resolve, reject) => {
     exec(
-      'pnpm dlx shadcn@latest add --all -y',
+      `${packageManager.dlx} shadcn@latest add --all -y`,
       { cwd: projectName },
       (error) => {
         if (error) return reject(error)

@@ -1,9 +1,15 @@
+#!/usr/bin/env node
+
 import { Command } from 'commander'
 import { addPackage } from './commands/index.js'
 
 const program = new Command()
 
-program.name('cli nextjs').description('Test CLI').version('0.1.0')
+program
+  .name('taiz')
+  .description('CLI for scaffolding Next.js projects')
+  .version('0.1.0')
+
 program
   .command('init')
   .description('Create project')

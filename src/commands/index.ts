@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { exec } from 'child_process'
 import chalk from 'chalk'
 import {
@@ -19,6 +17,7 @@ import { addAuthFormComponent } from './misc/authForm/generators.js'
 import { addHomePageComponent } from './misc/hero/generators.js'
 import figlet from 'figlet'
 import gradient from 'gradient-string'
+import { getPackageManagerCommand } from './package-command.js'
 
 const promptUser = async () => {
   const projectName = await askProjectName()
@@ -34,6 +33,7 @@ const promptUser = async () => {
 
 export const addPackage = async (options: any) => {
   const spinner = ora()
+  const packageManager = getPackageManagerCommand()
 
   const lilacGradient = gradient([
     { color: '#D8BFD8', pos: 0 },
@@ -51,7 +51,7 @@ export const addPackage = async (options: any) => {
       spinner.start('Installing NextJS...')
       await new Promise((resolve, reject) => {
         exec(
-          `pnpm dlx create-next-app@latest ${answer.projectName} --yes --tailwind --eslint --app --ts --empty`,
+          `${packageManager.dlx} create-next-app@latest ${answer.projectName} --yes --tailwind --eslint --app --ts --empty`,
           (error, stdout, stderr) => {
             if (error) {
               console.error(chalk.red('Error installing NextJS:'), stderr)
@@ -133,11 +133,15 @@ export const addPackage = async (options: any) => {
     )
     console.log(
       '3. Run ' +
-        chalk.blue.bold('pnpm prisma migrate dev --name "init"') +
+        chalk.blue.bold(
+          `${packageManager.package} prisma migrate dev --name "init"`,
+        ) +
         ' to apply database migrations.',
     )
     console.log(
-      '4. Run ' + chalk.blue.bold('pnpm run dev') + ' to start the project.',
+      '4. Run ' +
+        chalk.blue.bold(`${packageManager.package} run dev`) +
+        ' to start the project.',
     )
     console.log(
       '5. Open ' +

@@ -2,7 +2,6 @@ import path from 'path'
 import fs from 'fs'
 
 export const addScriptsToPackageJsonPrisma = (projectName: string) => {
-  // Package.json path, using projetcs name
   const packageJsonPath = path.join(projectName, 'package.json')
 
   if (!fs.existsSync(packageJsonPath)) {

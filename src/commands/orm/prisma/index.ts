@@ -34,9 +34,13 @@ export async function addPrisma(projectName: string, db: string) {
   addSchemaToPrisma(projectName)
 
   await new Promise((resolve, reject) => {
-    exec(`pnpm dlx prisma generate`, { cwd: projectName }, (error) => {
-      if (error) return reject(error)
-      resolve('')
-    })
+    exec(
+      `${packageManager.dlx} prisma generate`,
+      { cwd: projectName },
+      (error) => {
+        if (error) return reject(error)
+        resolve('')
+      },
+    )
   })
 }

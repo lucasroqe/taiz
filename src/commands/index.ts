@@ -48,47 +48,43 @@ export const addPackage = async (options: any) => {
     spinner.start()
     const start = Date.now()
     if (answer.framework === 'nextjs') {
-      spinner.start('Installing NextJS...')
+      spinner.text = `Installing Next.js...`
+      spinner.start()
       await new Promise((resolve, reject) => {
         exec(
           `${packageManager.dlx} create-next-app@latest ${answer.projectName} --yes --tailwind --eslint --app --ts --empty`,
-          (error, stdout, stderr) => {
-            if (error) {
-              console.error(chalk.red('Error installing NextJS:'), stderr)
-              return reject(error)
-            }
-            resolve(stdout)
+          (error) => {
+            if (error) return reject(error)
+            resolve('')
           },
         )
       })
-      spinner.succeed('Next.js installed successfully!')
+      spinner.succeed(`Next.js installed successfully!`)
     }
 
     if (answer.orm === 'prisma') {
-      spinner.start(
-        `Installing Prisma and setting up the (${answer.db.toUpperCase()}) database...`,
-      )
+      spinner.text = `Installing Prisma and setting up the (${answer.db.toUpperCase()}) database...`
+      spinner.start()
       await addPrisma(answer.projectName, answer.db)
       spinner.succeed(`Prisma configured successfully!`)
     }
 
     if (answer.auth === 'betterauth') {
-      spinner.start('Installing BetterAuth...')
+      spinner.text = `Installing Better Auth...`
+      spinner.start()
       await addAuth(answer.projectName, answer.db)
-      spinner.succeed('BetterAuth installed successfully!')
+      spinner.succeed(`BetterAuth installed successfully!`)
     }
 
     if (answer.ui === 'shadcnui') {
-      spinner.start(
-        `Adding Shadcn/UI with ${answer.color} as the base color...`,
-      )
+      spinner.text = `Adding Shadcn/UI with ${answer.color} as the base color...`
+      spinner.start()
       await addUi(answer.projectName, answer.color)
       spinner.succeed('Shadcn/UI added successfully!')
     }
 
-    spinner.start(
-      'Installing additional configs (React Hook Form, Zod, etc)...',
-    )
+    spinner.text = `Installing additional configs (React Hook Form, Zod, etc)...`
+    spinner.start()
     await new Promise((resolve, reject) => {
       exec(
         `pnpm add zod react-hook-form lucide-react`,
@@ -134,7 +130,7 @@ export const addPackage = async (options: any) => {
     console.log(
       '3. Run ' +
         chalk.blue.bold(
-          `${packageManager.package} prisma migrate dev --name "init"`,
+          `${packageManager.dlx} prisma migrate dev --name "init"`,
         ) +
         ' to apply database migrations.',
     )

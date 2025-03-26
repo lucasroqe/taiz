@@ -63,7 +63,7 @@ export const addPackage = async (options: any) => {
     }
 
     if (answer.orm === 'prisma') {
-      spinner.text = `Installing Prisma and setting up the (${answer.db.toUpperCase()}) database...`
+      spinner.text = `Installing Prisma and setting up the ${answer.db} database...`
       spinner.start()
       await addPrisma(answer.projectName, answer.db)
       spinner.succeed(`Prisma configured successfully!`)
@@ -120,24 +120,14 @@ export const addPackage = async (options: any) => {
       )
     }
 
-    console.log('\nTo get started:')
+    console.log(chalk.underline('\nTo get started:'))
     console.log(`1. Navigate to ` + chalk.blue.bold(`${answer.projectName}`))
+    console.log(`2. Edit .env with your enviroment variables`)
     console.log(
-      `2. Open the .env file and update ` +
-        chalk.blue.bold(`BETTER_AUTH_SECRET`) +
-        ` with a strong secret key.`,
+      '3. Run ' + chalk.blue.bold(`${packageManager.package} run db:migrate`),
     )
     console.log(
-      '3. Run ' +
-        chalk.blue.bold(
-          `${packageManager.dlx} prisma migrate dev --name "init"`,
-        ) +
-        ' to apply database migrations.',
-    )
-    console.log(
-      '4. Run ' +
-        chalk.blue.bold(`${packageManager.package} run dev`) +
-        ' to start the project.',
+      '4. Run ' + chalk.blue.bold(`${packageManager.package} run dev`),
     )
     console.log(
       '5. Open ' +
@@ -149,7 +139,7 @@ export const addPackage = async (options: any) => {
 
     console.log(chalk.yellow('Notes:'))
     console.log(
-      '- Zod is already installed. Feel free to create validations for the auth form.',
+      '- Zod is already installed. Don’t forget to add validations to the auth form.',
     )
     console.log(
       '- Found an issue? Report it at: ' +

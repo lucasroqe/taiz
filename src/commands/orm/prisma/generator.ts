@@ -19,6 +19,7 @@ export const addScriptsToPackageJsonPrisma = (projectName: string) => {
     const newItems = {
       'db:generate': 'prisma generate',
       'db:push': 'prisma db push',
+      'db:migrate': 'prisma migrate dev'
     }
 
     packageJson.scripts = {

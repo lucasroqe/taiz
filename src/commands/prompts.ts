@@ -7,8 +7,8 @@ export const askProjectName = async () => {
       if (!value.trim()) {
         return 'Project name cannot be empty. Please enter a valid name.'
       }
-      if (!/^[a-zA-Z0-9-_]+$/.test(value)) {
-        return 'Project name can only contain letters, numbers, dashes (-), and underscores (_).'
+      if (!/^[a-z0-9-_]+$/.test(value) || /[A-Z]/.test(value)) {
+        return 'Project name can only contain lowercase letters, numbers, dashes (-), and underscores (_).'
       }
       return true
     },

@@ -80,7 +80,7 @@ import Link from "next/link"
 
 export default function Hero() {
   return (
-    <div className="relative flex-grow bg-gradient-to-b from-background to-muted">
+    <div className="relative flex-grow">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-60">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-7xl">

@@ -3,7 +3,7 @@
 Taiz is a command-line tool designed to streamline the creation of Next.js applications. It accelerates your development workflow by providing pre-built components and seamless package integration.
 
 <div align="center">
-     <img src="./public/cli.png" width="500"/>
+     <img src="https://raw.githubusercontent.com/lucasroqe/taiz/master/public/cli.png" width="500"/>
 </div>
 
 ## Features
@@ -12,9 +12,7 @@ Taiz is a command-line tool designed to streamline the creation of Next.js appli
 - **Quick Setup**: Start building in seconds with minimal configuration.
 
 <div align="center">
-        <a href="https://react-hook-form.com" title="Taiz - CLI">
-            <img src="./public/ready-components.png" width="475"/>
-        </a>
+    <img src="https://raw.githubusercontent.com/lucasroqe/taiz/master/public/ready-components.png" width="475"/>
 </div>
 
 ### Quick Start
